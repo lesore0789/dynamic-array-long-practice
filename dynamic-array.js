@@ -17,12 +17,22 @@ class DynamicArray {
       this.length++;
       this.data[this.length -1] = val;
     }
+    if (this.length > this.capacity) {
+      this.resize();
+    }
     return this.data;
   }
 
 
   pop() {
-
+    if(this.length >= 0){
+      let removed = this.data[this.length - 1];
+      this.data[this.length - 1] = undefined;
+      this.length--;
+      return removed;
+    } else {
+      return undefined
+    }
   }
 
   shift() {
@@ -36,13 +46,21 @@ class DynamicArray {
   }
 
   indexOf(val) {
-
-    // Your code here
+    if (this.length > 0) {
+      for (let i = 0; i < this.length; i++) {
+        if (this.data[i] === val) return i;
+      }
+      return -1;
+    }
   }
 
   resize() {
-
-    // Your code here
+    this.capacity *= 2;
+    let data = new Array(this.capacity);
+    for (let i = 0; i < this.capacity; i++) {
+      data[i] = this.data[i];
+    }
+    this.data = data;
   }
 
 }
