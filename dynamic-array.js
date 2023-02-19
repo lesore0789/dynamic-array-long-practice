@@ -36,13 +36,31 @@ class DynamicArray {
   }
 
   shift() {
-
-    // Your code here
+    let first = this.data[0];
+    this.length--;
+    if (this.length > 0) {
+      let unshifted = [];
+      for (let i = 1; i <= this.length; i++) {
+        unshifted[i - 1] = this.data[i];
+      }
+      this.data = unshifted;
+    } else this.data = [];
+    return first;
   }
 
   unshift(val) {
-
-    // Your code here
+    let unshifted = [val];
+    if (val) {
+      this.length++;
+      for (let i = 1; i <= this.length; i++) {
+        unshifted[i] = this.data[i - 1];
+      }
+    }
+    this.data = unshifted;
+    if (this.length > this.capacity) {
+      this.resize();
+    }
+    return unshifted;
   }
 
   indexOf(val) {
